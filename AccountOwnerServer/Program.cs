@@ -5,7 +5,8 @@ using NLog;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.ConfigureLoggerService();
 LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
-
+builder.Services.ConfigurePostgresqlContext(builder.Configuration);
+builder.Services.ConfigureRepositoryWrapper();
 // Add services to the container.
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();

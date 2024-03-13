@@ -1,5 +1,9 @@
 ﻿using Contracts;
+using Entities;
 using LoggerService;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+
 
 namespace AccountOwnerServer.Extensions
 {
@@ -27,6 +31,18 @@ namespace AccountOwnerServer.Extensions
         public static void ConfigureLoggerService(this IServiceCollection services)
         {
             services.AddSingleton<ILoggerManager, LoggerManager>();
+        }
+
+        public static void ConfigurePostgresqlContext(this IServiceCollection services, IConfiguration config)
+        {
+            var connectionString = config["PostgresqlConnection:connectionString"];
+
+            services.AddDbContext<RepositoryContext>(o => o.UseNpgsql(connectionString));
+        }
+
+        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
+        {
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
     }
 }
