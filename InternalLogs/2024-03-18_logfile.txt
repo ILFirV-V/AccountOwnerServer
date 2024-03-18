@@ -1,0 +1,5 @@
+2024-03-18 12:47:07.7923 ERROR Something went wrong inside GetAllOwners action: 3D000: ���� ������ "AccountOwnerServer" �� ����������
+2024-03-18 12:55:36.0750 ERROR Something went wrong inside GetAllOwners action: 3D000: ���� ������ "postgres10" �� ����������
+2024-03-18 12:56:34.6063 ERROR Something went wrong inside GetAllOwners action: 3D000: ���� ������ "postgres10" �� ����������
+2024-03-18 12:59:58.9889 ERROR Something went wrong inside GetAllOwners action: 3D000: ���� ������ "postgres10" �� ����������
+2024-03-18 13:06:14.1835 INFO Returned all owners from database.
