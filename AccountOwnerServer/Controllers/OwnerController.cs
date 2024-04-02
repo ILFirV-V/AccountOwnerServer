@@ -107,6 +107,7 @@ namespace AccountOwnerServer.Controllers
                 {
                     _logger.LogError("Invalid owner object sent from client.");
                     return BadRequest("Invalid model object");
+                    //123123123123122
                 }
 
                 var ownerEntity = _mapper.Map<Owner>(owner);
