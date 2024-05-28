@@ -11,19 +11,19 @@ namespace Repository
     public sealed class RepositoryWrapper : IRepositoryWrapper
     {
         private RepositoryContext repoContext;
-        public IOwnerRepository Owner { get; }
-        public IAccountRepository Account { get; }
+        public IOwnerRepositoryAsync Owner { get; }
+        public IAccountRepositoryAsync Account { get; }
 
-        public RepositoryWrapper(RepositoryContext repositoryContext, IOwnerRepository ownerRepository, IAccountRepository accountRepository)
+        public RepositoryWrapper(RepositoryContext repositoryContext, IOwnerRepositoryAsync ownerRepository, IAccountRepositoryAsync accountRepository)
         {
             repoContext = repositoryContext;
             Owner = ownerRepository;
             Account = accountRepository;
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            repoContext.SaveChanges();
+            await repoContext.SaveChangesAsync();
         }
     }
 }

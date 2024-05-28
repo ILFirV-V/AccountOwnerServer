@@ -43,8 +43,8 @@ namespace AccountOwnerServer.Extensions
 
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
-            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IOwnerRepositoryAsync, OwnerRepository>();
+            services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
     }

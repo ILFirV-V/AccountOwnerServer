@@ -8,5 +8,6 @@ namespace Contracts.Services
 {
     public interface IAccountService
     {
+
     }
 }

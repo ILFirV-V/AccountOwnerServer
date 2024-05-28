@@ -10,30 +10,31 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public sealed class OwnerRepository : RepositoryBase<Owner>, IOwnerRepository
+    public sealed class OwnerRepository : RepositoryBase<Owner>, IOwnerRepositoryAsync
     {
         public OwnerRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
         {
         }
 
-        public IEnumerable<Owner> GetAllOwners()
+        public async Task<IEnumerable<Owner>> GetAllOwnersAsync()
         {
-            return FindAll()
-                .OrderBy(ow => ow.Name)
-                .ToList();
+            return await FindAll()
+               .OrderBy(ow => ow.Name)
+               .ToListAsync();
         }
 
-        public Owner? GetOwnerById(Guid ownerId)
+        public Task<Owner?> GetOwnerByIdAsync(Guid ownerId)
         {
-            return FindByCondition(owner => owner.Id.Equals(ownerId)).FirstOrDefault();
+            return FindByCondition(owner => owner.Id.Equals(ownerId))
+                .FirstOrDefaultAsync();
         }
 
-        public Owner? GetOwnerWithDetails(Guid ownerId)
+        public Task<Owner?> GetOwnerWithDetailsAsync(Guid ownerId)
         {
             return FindByCondition(owner => owner.Id.Equals(ownerId))
                 .Include(ac => ac.Accounts)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
     }
 }

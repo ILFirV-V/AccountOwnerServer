@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 using Contracts.Repository;
 using Entities;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public sealed class AccountRepository : RepositoryBase<Account>, IAccountRepository
+    public sealed class AccountRepository : RepositoryBase<Account>, IAccountRepositoryAsync
     {
         public AccountRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
         {
         }
 
-        public IEnumerable<Account> AccountsByOwner(Guid ownerId)
+        public async Task<IEnumerable<Account>> AccountsByOwnerAsync(Guid ownerId)
         {
-            return FindByCondition(a => a.OwnerId.Equals(ownerId)).ToList();
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId)).ToListAsync();
         }
     }
 }

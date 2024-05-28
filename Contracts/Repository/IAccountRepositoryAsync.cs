@@ -7,8 +7,8 @@ using Entities.Models;
 
 namespace Contracts.Repository
 {
-    public interface IAccountRepository : IRepositoryBase<Account>
+    public interface IAccountRepositoryAsync : IRepositoryBase<Account>
     {
-        IEnumerable<Account> AccountsByOwner(Guid ownerId);
+        Task<IEnumerable<Account>> AccountsByOwnerAsync(Guid ownerId);
     }
 }

@@ -46,7 +46,7 @@ namespace AccountOwnerServer.Controllers
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerById(id);
+                var owner = _repository.Owner.GetOwnerByIdAsync(id);
                 if (owner is null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
@@ -71,7 +71,7 @@ namespace AccountOwnerServer.Controllers
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerWithDetails(id);
+                var owner = _repository.Owner.GetOwnerWithDetailsAsync(id);
 
                 if (owner == null)
                 {
@@ -113,7 +113,7 @@ namespace AccountOwnerServer.Controllers
                 var ownerEntity = _mapper.Map<Owner>(owner);
 
                 _repository.Owner.Create(ownerEntity);
-                _repository.Save();
+                _repository.SaveAsync();
 
                 var createdOwner = _mapper.Map<OwnerDto>(ownerEntity);
 
@@ -143,7 +143,7 @@ namespace AccountOwnerServer.Controllers
                     return BadRequest("Invalid model object");
                 }
 
-                var ownerEntity = _repository.Owner.GetOwnerById(id);
+                var ownerEntity = _repository.Owner.GetOwnerByIdAsync(id);
                 if (ownerEntity is null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
@@ -153,7 +153,7 @@ namespace AccountOwnerServer.Controllers
                 _mapper.Map(owner, ownerEntity);
 
                 _repository.Owner.Update(ownerEntity);
-                _repository.Save();
+                _repository.SaveAsync();
 
                 return NoContent();
             }
@@ -169,19 +169,19 @@ namespace AccountOwnerServer.Controllers
         {
             try
             {
-                var owner = _repository.Owner.GetOwnerById(id);
+                var owner = _repository.Owner.GetOwnerByIdAsync(id);
                 if (owner == null)
                 {
                     _logger.LogError($"Owner with id: {id}, hasn't been found in db.");
                     return NotFound();
                 }
-                if (_repository.Account.AccountsByOwner(id).Any())
+                if (_repository.Account.AccountsByOwnerAsync(id).Any())
                 {
                     _logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
                     return BadRequest("Cannot delete owner. It has related accounts. Delete those accounts first");
                 }
                 _repository.Owner.Delete(owner);
-                _repository.Save();
+                _repository.SaveAsync();
 
                 return NoContent();
             }
