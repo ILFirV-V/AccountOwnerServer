@@ -1,5 +1,6 @@
-﻿using Contracts;
+﻿using Contracts.Logger;
 using NLog;
+
 namespace LoggerService
 {
     public class LoggerManager : ILoggerManager

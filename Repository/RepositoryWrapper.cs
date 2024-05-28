@@ -3,51 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Contracts;
+using Contracts.Repository;
 using Entities;
 
 namespace Repository
 {
-    public class RepositoryWrapper : IRepositoryWrapper
+    public sealed class RepositoryWrapper : IRepositoryWrapper
     {
-        private RepositoryContext _repoContext;
-        private IOwnerRepository _owner;
-        private IAccountRepository _account;
+        private RepositoryContext repoContext;
+        public IOwnerRepository Owner { get; }
+        public IAccountRepository Account { get; }
 
-        public RepositoryWrapper(RepositoryContext repositoryContext)
+        public RepositoryWrapper(RepositoryContext repositoryContext, IOwnerRepository ownerRepository, IAccountRepository accountRepository)
         {
-            _repoContext = repositoryContext;
-        }
-
-        public IOwnerRepository Owner
-        {
-            get
-            {
-                if (_owner == null)
-                {
-                    _owner = new OwnerRepository(_repoContext);
-                }
-
-                return _owner;
-            }
-        }
-
-        public IAccountRepository Account
-        {
-            get
-            {
-                if (_account == null)
-                {
-                    _account = new AccountRepository(_repoContext);
-                }
-
-                return _account;
-            }
+            repoContext = repositoryContext;
+            Owner = ownerRepository;
+            Account = accountRepository;
         }
 
         public void Save()
         {
-            _repoContext.SaveChanges();
+            repoContext.SaveChanges();
         }
     }
 }

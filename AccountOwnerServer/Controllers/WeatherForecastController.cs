@@ -1,4 +1,4 @@
-using Contracts;
+using Contracts.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AccountOwnerServer.Controllers
@@ -12,6 +12,7 @@ namespace AccountOwnerServer.Controllers
         {
             _repository = repository;
         }
+
         [HttpGet]
         public IEnumerable<string> Get()
         {

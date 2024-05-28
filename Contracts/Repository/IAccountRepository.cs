@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Entities.Models;
 
-namespace Contracts
+namespace Contracts.Repository
 {
     public interface IAccountRepository : IRepositoryBase<Account>
     {

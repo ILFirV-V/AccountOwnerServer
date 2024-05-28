@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Contracts;
+using Contracts.Logger;
+using Contracts.Repository;
 using Entities.DataTransferObjects;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace AccountOwnerServer.Controllers
         {
             try
             {
-                var owners = _repository.Owner.GetAllOwners();
+                var owners = _repository.Owner.FindAll();
                 _logger.LogInfo($"Returned all owners from database.");
 
                 var ownersResult = _mapper.Map<IEnumerable<OwnerDto>>(owners);
@@ -111,7 +112,7 @@ namespace AccountOwnerServer.Controllers
 
                 var ownerEntity = _mapper.Map<Owner>(owner);
 
-                _repository.Owner.CreateOwner(ownerEntity);
+                _repository.Owner.Create(ownerEntity);
                 _repository.Save();
 
                 var createdOwner = _mapper.Map<OwnerDto>(ownerEntity);
@@ -151,7 +152,7 @@ namespace AccountOwnerServer.Controllers
 
                 _mapper.Map(owner, ownerEntity);
 
-                _repository.Owner.UpdateOwner(ownerEntity);
+                _repository.Owner.Update(ownerEntity);
                 _repository.Save();
 
                 return NoContent();
@@ -179,7 +180,7 @@ namespace AccountOwnerServer.Controllers
                     _logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
                     return BadRequest("Cannot delete owner. It has related accounts. Delete those accounts first");
                 }
-                _repository.Owner.DeleteOwner(owner);
+                _repository.Owner.Delete(owner);
                 _repository.Save();
 
                 return NoContent();

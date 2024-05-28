@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using Contracts.Logger;
+using Contracts.Repository;
 using Entities;
 using LoggerService;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,8 @@ namespace AccountOwnerServer.Extensions
 
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
     }

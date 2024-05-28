@@ -11,7 +11,6 @@ namespace Entities
             Database.EnsureCreated();
         }
 
-
         public DbSet<Owner>? Owners { get; set; }
         public DbSet<Account>? Accounts { get; set; }
     }
