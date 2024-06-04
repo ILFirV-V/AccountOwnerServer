@@ -1,4 +1,5 @@
 ﻿using Contracts.Services;
+using Entities.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

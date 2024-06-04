@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Entities.DbModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Entities
@@ -11,7 +11,7 @@ namespace Entities
             Database.EnsureCreated();
         }
 
-        public DbSet<Owner>? Owners { get; set; }
-        public DbSet<Account>? Accounts { get; set; }
+        public DbSet<OwnerDbModel>? Owners { get; set; }
+        public DbSet<AccountDbModel>? Accounts { get; set; }
     }
 }

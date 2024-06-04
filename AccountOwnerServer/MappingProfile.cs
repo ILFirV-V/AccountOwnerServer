@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Entities.DataTransferObjects;
-using Entities.Models;
+using Entities.DbModels;
 
 namespace AccountOwnerServer
 {
@@ -8,10 +8,10 @@ namespace AccountOwnerServer
     {
         public MappingProfile()
         {
-            CreateMap<Owner, OwnerDto>();
-            CreateMap<Account, AccountDto>();
-            CreateMap<OwnerForCreationDto, Owner>();
-            CreateMap<OwnerForUpdateDto, Owner>();
+            CreateMap<OwnerDbModel, OwnerDto>();
+            CreateMap<AccountDbModel, AccountDto>();
+            CreateMap<OwnerForCreationDto, OwnerDbModel>();
+            CreateMap<OwnerForUpdateDto, OwnerDbModel>();
         }
     }
 }

@@ -5,32 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Contracts.Repository;
 using Entities;
-using Entities.Models;
+using Entities.DbModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    public sealed class OwnerRepository : RepositoryBase<Owner>, IOwnerRepositoryAsync
+    public sealed class OwnerRepository : RepositoryBase<OwnerDbModel>, IOwnerRepositoryAsync
     {
         public OwnerRepository(RepositoryContext repositoryContext)
             : base(repositoryContext)
         {
         }
 
-        public async Task<IEnumerable<Owner>> GetAllOwnersAsync()
+        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync()
         {
             return await FindAll()
                .OrderBy(ow => ow.Name)
                .ToListAsync();
         }
 
-        public Task<Owner?> GetOwnerByIdAsync(Guid ownerId)
+        public Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId)
         {
             return FindByCondition(owner => owner.Id.Equals(ownerId))
                 .FirstOrDefaultAsync();
         }
 
-        public Task<Owner?> GetOwnerWithDetailsAsync(Guid ownerId)
+        public Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId)
         {
             return FindByCondition(owner => owner.Id.Equals(ownerId))
                 .Include(ac => ac.Accounts)

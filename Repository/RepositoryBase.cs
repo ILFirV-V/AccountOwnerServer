@@ -9,14 +9,14 @@ namespace Repository
     {
         protected RepositoryContext RepositoryContext { get; set; }
 
-        public RepositoryBase(RepositoryContext repositoryContext)
-        {
-            RepositoryContext = repositoryContext;
-        }
-
         public IQueryable<T> FindAll()
         {
             return RepositoryContext.Set<T>().AsNoTracking();
+        }
+
+        public RepositoryBase(RepositoryContext repositoryContext)
+        {
+            RepositoryContext = repositoryContext;
         }
 
         public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)

@@ -1,4 +1,4 @@
-﻿using Entities.Models;
+﻿using Entities.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Contracts.Repository
 {
-    public interface IOwnerRepositoryAsync : IRepositoryBase<Owner>
+    public interface IOwnerRepositoryAsync : IRepositoryBase<OwnerDbModel>
     {
-        Task<IEnumerable<Owner>> GetAllOwnersAsync();
-        Task<Owner?> GetOwnerByIdAsync(Guid ownerId);
-        Task<Owner?> GetOwnerWithDetailsAsync(Guid ownerId);
+        Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync();
+        Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId);
+        Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId);
     }
 }
