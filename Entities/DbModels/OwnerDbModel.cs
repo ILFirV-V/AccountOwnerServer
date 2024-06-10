@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace Entities.DbModels
 {
     [Table("owner")]
-    public class OwnerDbModel
+    public class OwnerDbModel : IEntity
     {
         [Column("OwnerId")]
         public Guid Id { get; set; }

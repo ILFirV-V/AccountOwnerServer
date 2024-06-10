@@ -5,6 +5,7 @@ using Contracts.Services;
 using Entities.DataTransferObjects;
 using Entities.DbModels;
 using Entities.Exceptions;
+using Entities.Models;
 
 namespace Services
 {
@@ -104,11 +105,11 @@ namespace Services
                 logger.LogError($"Owner with id: {id}, hasn't been found in db.");
                 throw new NotFoundException($"Owner with ID {id} not found");
             }
-            var accounts = await repository.Account.AccountsByOwnerAsync(id);
+            var accounts = await repository.Account.GetAccountsByOwner(id);
             if (accounts.Any())
             {
                 logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
-                throw new OwnerWithAccountsException("Cannot delete owner. It has related accounts. Delete those accounts first");
+                throw new DeleteOwnerWithAccountsException("Cannot delete owner. It has related accounts. Delete those accounts first");
             }
             repository.Owner.Delete(ownerDb);
             await repository.SaveAsync();

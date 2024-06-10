@@ -1,10 +1,5 @@
-﻿using AutoMapper;
-using Contracts.Logger;
-using Contracts.Repository;
-using Contracts.Services;
+﻿using Contracts.Services;
 using Entities.DataTransferObjects;
-using Entities.DbModels;
-using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 

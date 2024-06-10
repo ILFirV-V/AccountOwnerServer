@@ -12,12 +12,14 @@ builder.Services.AddProblemDetails();
 LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 builder.Services.ConfigurePostgresqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryWrapper();
+builder.Services.ConfigureServices();
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
+
 
 
 var app = builder.Build();

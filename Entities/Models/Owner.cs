@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace Entities.Models
 {
-    public class Owner
+    public class Owner : IModelWithId
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; init; }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; init; }
 
-        public string? Address { get; set; }
+        public string? Address { get; init; }
 
-        public ICollection<Account>? Accounts { get; set; }
+        public ICollection<Account>? Accounts { get; init; }
     }
 }

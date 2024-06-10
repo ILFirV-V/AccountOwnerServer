@@ -9,6 +9,7 @@ namespace Contracts.Repository
 {
     public interface IAccountRepositoryAsync : IRepositoryBase<AccountDbModel>
     {
-        Task<IEnumerable<AccountDbModel>> AccountsByOwnerAsync(Guid ownerId);
+        Task<IEnumerable<AccountDbModel>> GetAccountsByOwner(Guid ownerId);
+        Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id);
     }
 }

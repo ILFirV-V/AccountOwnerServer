@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Contracts.Repository;
 using Entities;
 using Entities.DbModels;
+using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
@@ -17,9 +18,14 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<AccountDbModel>> AccountsByOwnerAsync(Guid ownerId)
+        public async Task<IEnumerable<AccountDbModel>> GetAccountsByOwner(Guid ownerId)
         {
             return await FindByCondition(a => a.OwnerId.Equals(ownerId)).ToListAsync();
+        }
+
+        public async Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id)
+        {
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId) && a.Id.Equals(id)).SingleOrDefaultAsync();
         }
     }
 }

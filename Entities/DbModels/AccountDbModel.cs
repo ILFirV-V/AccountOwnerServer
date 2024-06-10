@@ -5,11 +5,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entities.Enums;
+using System.Security.Principal;
 
 namespace Entities.DbModels
 {
     [Table("account")]
-    public class AccountDbModel
+    public class AccountDbModel : IEntity
     {
         [Column("AccountId")]
         public Guid Id { get; set; }
@@ -18,7 +20,7 @@ namespace Entities.DbModels
         public DateTime DateCreated { get; set; }
 
         [Required(ErrorMessage = "Account type is required")]
-        public string AccountType { get; set; }
+        public AccountType AccountType { get; set; }
 
         [ForeignKey(nameof(Owner))]
         [Required(ErrorMessage = "Owner Id is required")]

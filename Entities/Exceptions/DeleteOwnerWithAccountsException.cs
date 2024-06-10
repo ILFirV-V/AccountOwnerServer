@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Entities.Exceptions
 {
-    public class OwnerWithAccountsException : Exception
+    public class DeleteOwnerWithAccountsException : Exception
     {
-        public OwnerWithAccountsException()
+        public DeleteOwnerWithAccountsException()
         {
         }
 
-        public OwnerWithAccountsException(string message)
+        public DeleteOwnerWithAccountsException(string message)
             : base(message)
         {
         }
 
-        public OwnerWithAccountsException(string message, Exception inner)
+        public DeleteOwnerWithAccountsException(string message, Exception inner)
             : base(message, inner)
         {
         }
