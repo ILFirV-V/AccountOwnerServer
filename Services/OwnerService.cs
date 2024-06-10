@@ -105,7 +105,7 @@ namespace Services
                 logger.LogError($"Owner with id: {id}, hasn't been found in db.");
                 throw new NotFoundException($"Owner with ID {id} not found");
             }
-            var accounts = await repository.Account.GetAccountsByOwner(id);
+            var accounts = await repository.Account.GetAllByOwnerIdAsync(id);
             if (accounts.Any())
             {
                 logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");

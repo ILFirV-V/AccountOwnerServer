@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Entities.DbModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace Contracts.Repository
 {
     public interface IAccountRepositoryAsync : IRepositoryBase<AccountDbModel>
     {
-        Task<IEnumerable<AccountDbModel>> GetAccountsByOwner(Guid ownerId);
-        Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id);
+        Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
+        Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id, CancellationToken cancellationToken = default);
     }
 }

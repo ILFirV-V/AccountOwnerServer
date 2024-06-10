@@ -54,6 +54,7 @@ namespace AccountOwnerServer.Extensions
         {
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IServiceManager, ServiceManager>();
         }
     }
 }

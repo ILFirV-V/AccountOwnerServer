@@ -17,24 +17,24 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync()
+        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(CancellationToken cancellationToken = default)
         {
             return await FindAll()
                .OrderBy(ow => ow.Name)
-               .ToListAsync();
+               .ToListAsync(cancellationToken);
         }
 
-        public Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId)
+        public Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId, CancellationToken cancellationToken = default)
         {
             return FindByCondition(owner => owner.Id.Equals(ownerId))
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
         }
 
-        public Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId)
+        public Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId, CancellationToken cancellationToken = default)
         {
             return FindByCondition(owner => owner.Id.Equals(ownerId))
                 .Include(ac => ac.Accounts)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(cancellationToken);
         }
     }
 }

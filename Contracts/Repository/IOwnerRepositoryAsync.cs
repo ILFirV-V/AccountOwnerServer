@@ -9,8 +9,8 @@ namespace Contracts.Repository
 {
     public interface IOwnerRepositoryAsync : IRepositoryBase<OwnerDbModel>
     {
-        Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync();
-        Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId);
-        Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId);
+        Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(CancellationToken cancellationToken = default);
+        Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId, CancellationToken cancellationToken = default);
+        Task<OwnerDbModel?> GetOwnerWithDetailsAsync(Guid ownerId, CancellationToken cancellationToken = default);
     }
 }

@@ -30,7 +30,7 @@ namespace Services
 
         public async Task<AccountDto?> GetAccountsByOwnerId(Guid ownerId)
         {
-            var accountsDb = await repository.Account.GetAccountsByOwner(ownerId);
+            var accountsDb = await repository.Account.GetAllByOwnerIdAsync(ownerId);
             if (accountsDb is null)
             {
                 logger.LogError($"Accounts with owner id: {ownerId}, hasn't been found in db.");

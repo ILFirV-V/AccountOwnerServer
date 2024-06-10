@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Contracts.Repository;
 using Entities;
 using Entities.DbModels;
-using Entities.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repository
@@ -18,14 +17,14 @@ namespace Repository
         {
         }
 
-        public async Task<IEnumerable<AccountDbModel>> GetAccountsByOwner(Guid ownerId)
+        public async Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default)
         {
-            return await FindByCondition(a => a.OwnerId.Equals(ownerId)).ToListAsync();
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId)).ToListAsync(cancellationToken);
         }
 
-        public async Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id)
+        public async Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id, CancellationToken cancellationToken = default)
         {
-            return await FindByCondition(a => a.OwnerId.Equals(ownerId) && a.Id.Equals(id)).SingleOrDefaultAsync();
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId) && a.Id.Equals(id)).SingleOrDefaultAsync(cancellationToken);
         }
     }
 }
