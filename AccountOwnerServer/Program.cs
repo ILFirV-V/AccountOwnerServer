@@ -6,7 +6,10 @@ using NLog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureLoggerService();
+builder.Services.AddExceptionHandler<DeleteOwnerWithAccountsExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+
 builder.Services.AddProblemDetails();
 
 LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
