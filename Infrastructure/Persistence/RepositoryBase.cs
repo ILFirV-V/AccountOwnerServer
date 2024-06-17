@@ -1,0 +1,41 @@
+﻿using Domain.Repository;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
+
+namespace Persistence
+{
+    internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    {
+        protected RepositoryContext RepositoryContext { get; set; }
+
+        public IQueryable<T> FindAll()
+        {
+            return RepositoryContext.Set<T>().AsNoTracking();
+        }
+
+        public RepositoryBase(RepositoryContext repositoryContext)
+        {
+            RepositoryContext = repositoryContext;
+        }
+
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
+        {
+            return RepositoryContext.Set<T>().Where(expression).AsNoTracking();
+        }
+            
+        public void Create(T entity)
+        {
+            RepositoryContext.Set<T>().AddAsync(entity);
+        }
+
+        public void Update(T entity)
+        {
+            RepositoryContext.Set<T>().Update(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            RepositoryContext.Set<T>().Remove(entity);
+        }
+    }
+}

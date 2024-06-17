@@ -1,8 +1,7 @@
-﻿
-using Entities.DbModels;
+﻿using Domain.DbModels;
 using Microsoft.EntityFrameworkCore;
 
-namespace Entities
+namespace Persistence
 {
     public class RepositoryContext : DbContext
     {

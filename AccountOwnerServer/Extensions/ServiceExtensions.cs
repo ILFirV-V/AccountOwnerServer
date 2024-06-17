@@ -1,11 +1,6 @@
-﻿using Contracts.Logger;
-using Contracts.Repository;
-using Contracts.Services;
-using Entities;
-using LoggerService;
+﻿
 using Microsoft.EntityFrameworkCore;
-using Repository;
-using Services;
+using Persistence;
 
 
 namespace AccountOwnerServer.Extensions
@@ -31,30 +26,11 @@ namespace AccountOwnerServer.Extensions
             });
         }
 
-        public static void ConfigureLoggerService(this IServiceCollection services)
-        {
-            services.AddSingleton<ILoggerManager, LoggerManager>();
-        }
-
         public static void ConfigurePostgresqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config["PostgresqlConnection:connectionString"];
 
             services.AddDbContext<RepositoryContext>(o => o.UseNpgsql(connectionString));
-        }
-
-        public static void ConfigureRepositoryWrapper(this IServiceCollection services)
-        {
-            services.AddScoped<IOwnerRepositoryAsync, OwnerRepository>();
-            services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-        }
-
-        public static void ConfigureServices(this IServiceCollection services)
-        {
-            services.AddScoped<IOwnerService, OwnerService>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IServiceManager, ServiceManager>();
         }
     }
 }

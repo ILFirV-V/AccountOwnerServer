@@ -1,28 +1,35 @@
 using AccountOwnerServer.Extensions;
 using AccountOwnerServer.Middleware;
+using Logging.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 using NLog;
+using Persistence.Extensions;
+using Services.Extensions;
+using Services.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureLoggerService();
+
 builder.Services.AddExceptionHandler<DeleteOwnerWithAccountsExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-
-
 builder.Services.AddProblemDetails();
 
-LogManager.Setup().LoadConfigurationFromFile(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
+builder.Services.ConfigureLoggerService();
+
+
 builder.Services.ConfigurePostgresqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryWrapper();
+
 builder.Services.ConfigureServices();
+
 builder.Services.ConfigureCors();
 builder.Services.ConfigureIISIntegration();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddAutoMapper(typeof(Program));
-
+builder.Services.AddControllers()
+    .AddApplicationPart(typeof(Presentation.Controllers.AccountController).Assembly)
+    .AddApplicationPart(typeof(Presentation.Controllers.OwnerController).Assembly); ;
 
 
 var app = builder.Build();

@@ -1,5 +1,4 @@
-﻿using Contracts.Logger;
-using Entities.Models;
+﻿using Logging.Abstractions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

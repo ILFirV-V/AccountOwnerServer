@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Contracts.Logger;
 using Contracts.Repository;
 using Contracts.Services;
 using Entities.DataTransferObjects;
