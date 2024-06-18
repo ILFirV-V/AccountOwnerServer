@@ -19,5 +19,7 @@ namespace Domain.Models.Parameters
         [Display(Name = "Даты рождения начиная с этой даты")]
         [DateOfBirthRange(nameof(MaxYearOfBirth))]
         public DateTime MinYearOfBirth { get; set; } = DateTime.MinValue;
+
+        public string Name { get; set; }
     }
 }
