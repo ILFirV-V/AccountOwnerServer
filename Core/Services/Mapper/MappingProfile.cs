@@ -5,6 +5,7 @@ using Domain.DbModels;
 using Domain.Enums;
 using Domain.Extensions;
 using Domain.Models;
+using Domain.Models.Parameters;
 using Domain.Models.Parameters.Base;
 
 namespace Services.Mapper
@@ -37,6 +38,7 @@ namespace Services.Mapper
             CreateMap<OwnerDbModel, OwnerDto>();
 
             CreateMap<QueryStringParametersBase, GetItemsQuery>();
+            CreateMap<OwnerQueryParameters, OwnerParameters>(); 
         }
     }
 }

@@ -3,6 +3,7 @@ using Contracts.DataTransferObjects;
 using Domain.DbModels;
 using Domain.Exceptions;
 using Domain.Models;
+using Domain.Models.Parameters;
 using Domain.Models.Parameters.Base;
 using Domain.Repository;
 using Logging.Abstractions;
@@ -23,9 +24,9 @@ namespace Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<OwnerDto>> GetAllOwners(QueryStringParametersBase ownerParameters, CancellationToken cancellationToken)
+        public async Task<IEnumerable<OwnerDto>> GetAllOwners(OwnerQueryParameters ownerParameters, CancellationToken cancellationToken)
         {
-            var parameters = mapper.Map<GetItemsQuery>(ownerParameters);
+            var parameters = mapper.Map<OwnerParameters>(ownerParameters);
             var ownersDb = await repository.Owner.GetAllOwnersAsync(parameters, cancellationToken);
             logger.LogInfo($"Returned all owners from database.");
             var owners = mapper.Map<IEnumerable<OwnerDto>>(ownersDb);

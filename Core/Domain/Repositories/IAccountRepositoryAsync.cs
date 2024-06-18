@@ -1,5 +1,5 @@
 ﻿using Domain.DbModels;
-using Domain.Models;
+using Domain.Models.Parameters;
 
 namespace Domain.Repository
 {

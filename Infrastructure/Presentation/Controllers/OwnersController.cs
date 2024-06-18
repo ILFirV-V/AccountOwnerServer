@@ -27,7 +27,7 @@ namespace Presentation.Controllers
 
         [HttpGet]
         [PageMetadataFilterAttribute<Owner>]
-        public async Task<IActionResult> GetAllOwners([FromQuery] OwnerParameters ownerParameters, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllOwners([FromQuery] OwnerQueryParameters ownerParameters, CancellationToken cancellationToken)
         {
             var owners = await ownerService.GetAllOwners(ownerParameters, cancellationToken);
             return Ok(owners);

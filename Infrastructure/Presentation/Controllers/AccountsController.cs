@@ -25,7 +25,7 @@ namespace Presentation.Controllers
 
         [HttpGet]
         [PageMetadataFilterAttribute<Account>]
-        public IActionResult GetAccountsForOwner([FromQuery] AccountParameters accountParameters, Guid ownerId, CancellationToken cancellationToken)
+        public IActionResult GetAccountsForOwner([FromQuery] AccountQueryParameters accountParameters, Guid ownerId, CancellationToken cancellationToken)
         {
             var accounts = accountService.GetAccountsByOwnerId(ownerId, accountParameters, cancellationToken);
             return Ok(accounts);

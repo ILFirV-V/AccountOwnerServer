@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,17 +10,22 @@ namespace Domain.Models.Parameters.Base
     public abstract class QueryStringParametersBase
     {
         const int maxPageSize = 50;
-        public int PageNumber { get; set; } = 1;
-        private int _pageSize = 10;
+        private int pageSize = 10;
+
+        [Required]
+        [Range(1, int.MaxValue)]
+        public uint PageNumber { get; set; } = 1;
+
+        [Range(1, maxPageSize)]
         public int PageSize
         {
             get
             {
-                return _pageSize;
+                return pageSize;
             }
             set
             {
-                _pageSize = (value > maxPageSize) ? maxPageSize : value;
+                pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
     }

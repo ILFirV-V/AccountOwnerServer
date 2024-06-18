@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.DbModels;
-using Domain.Models;
+using Domain.Models.Parameters;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +17,13 @@ namespace Persistence
         {
         }
 
-        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(GetItemsQuery itemsQuery, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(OwnerParameters ownerParameters, CancellationToken cancellationToken = default)
         {
-            return await FindAll()
+            return await FindByCondition(o => o.DateOfBirth >= ownerParameters.MinDateOfBirth &&
+                                o.DateOfBirth <= ownerParameters.MaxDateOfBirth)
                 .OrderBy(ow => ow.Name)
-                .Skip((itemsQuery.PageNumber - 1) * itemsQuery.PageSize)
-                .Take(itemsQuery.PageSize)
+                .Skip((ownerParameters.PageNumber - 1) * ownerParameters.PageSize)
+                .Take(ownerParameters.PageSize)
                 .ToListAsync(cancellationToken);
         }
 

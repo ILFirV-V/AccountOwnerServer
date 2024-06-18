@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Models.Parameters
 {
-    public class AccountParameters : QueryStringParametersBase
+    public class AccountQueryParameters : QueryStringParametersBase
     {
     }
 }

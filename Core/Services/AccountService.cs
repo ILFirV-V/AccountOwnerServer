@@ -4,6 +4,7 @@ using Domain.DbModels;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Models;
+using Domain.Models.Parameters;
 using Domain.Models.Parameters.Base;
 using Domain.Repository;
 using Logging.Abstractions;
