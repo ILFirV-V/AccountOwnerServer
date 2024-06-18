@@ -1,6 +1,10 @@
 ﻿using Contracts.DataTransferObjects;
+using Domain.Models;
+using Domain.Models.Parameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Presentation.FilterAttributes;
 using Services.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -22,9 +26,10 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllOwners(CancellationToken cancellationToken)
+        [PageMetadataFilterAttribute<Owner>]
+        public async Task<IActionResult> GetAllOwners([FromQuery] OwnerParameters ownerParameters, CancellationToken cancellationToken)
         {
-            var owners = await ownerService.GetAllOwners(cancellationToken);
+            var owners = await ownerService.GetAllOwners(ownerParameters, cancellationToken);
             return Ok(owners);
         }
 
@@ -53,6 +58,7 @@ namespace Presentation.Controllers
         public async Task<IActionResult> UpdateOwner(Guid ownerId, [FromBody] OwnerForUpdateDto ownerForUpdateDto, CancellationToken cancellationToken)
         {
             await ownerService.UpdateOwner(ownerId, ownerForUpdateDto, cancellationToken);
+
             return NoContent();
         }
 

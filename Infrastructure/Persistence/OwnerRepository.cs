@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.DbModels;
+using Domain.Models;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,11 +17,13 @@ namespace Persistence
         {
         }
 
-        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<OwnerDbModel>> GetAllOwnersAsync(GetItemsQuery itemsQuery, CancellationToken cancellationToken = default)
         {
             return await FindAll()
-               .OrderBy(ow => ow.Name)
-               .ToListAsync(cancellationToken);
+                .OrderBy(ow => ow.Name)
+                .Skip((itemsQuery.PageNumber - 1) * itemsQuery.PageSize)
+                .Take(itemsQuery.PageSize)
+                .ToListAsync(cancellationToken);
         }
 
         public Task<OwnerDbModel?> GetOwnerByIdAsync(Guid ownerId, CancellationToken cancellationToken = default)

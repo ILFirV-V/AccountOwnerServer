@@ -2,6 +2,8 @@
 using Contracts.DataTransferObjects;
 using Domain.DbModels;
 using Domain.Exceptions;
+using Domain.Models;
+using Domain.Models.Parameters.Base;
 using Domain.Repository;
 using Logging.Abstractions;
 using Services.Abstractions;
@@ -21,12 +23,14 @@ namespace Services
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<OwnerDto>> GetAllOwners(CancellationToken cancellationToken)
+        public async Task<IEnumerable<OwnerDto>> GetAllOwners(QueryStringParametersBase ownerParameters, CancellationToken cancellationToken)
         {
-            var ownersDb = await repository.Owner.GetAllOwnersAsync(cancellationToken);
+            var parameters = mapper.Map<GetItemsQuery>(ownerParameters);
+            var ownersDb = await repository.Owner.GetAllOwnersAsync(parameters, cancellationToken);
             logger.LogInfo($"Returned all owners from database.");
             var owners = mapper.Map<IEnumerable<OwnerDto>>(ownersDb);
-            return owners;
+            var pagedItems = new PagedList<OwnerDto>(owners, parameters.PageNumber, parameters.PageSize);
+            return pagedItems;
         }
 
         public async Task<OwnerDto?> GetOwnerById(Guid id, CancellationToken cancellationToken)
@@ -57,7 +61,7 @@ namespace Services
             return ownerResult;
         }
 
-        public async Task<OwnerDto?> CreateOwner(OwnerForCreationDto owner, CancellationToken cancellationToken)
+        public async Task<OwnerDto> CreateOwner(OwnerForCreationDto owner, CancellationToken cancellationToken)
         {
             if (owner is null)
             {
@@ -104,8 +108,9 @@ namespace Services
                 logger.LogError($"Owner with id: {id}, hasn't been found in db.");
                 throw new NotFoundException($"Owner with ID {id} not found");
             }
-            var accounts = await repository.Account.GetAllByOwnerIdAsync(id, cancellationToken);
-            if (accounts.Any())
+
+            var isExistsAnyAccount = await repository.Account.ExistsAny(id, cancellationToken);
+            if (!isExistsAnyAccount)
             {
                 logger.LogError($"Cannot delete owner with id: {id}. It has related accounts. Delete those accounts first");
                 throw new DeleteOwnerWithAccountsException("Cannot delete owner. It has related accounts. Delete those accounts first");

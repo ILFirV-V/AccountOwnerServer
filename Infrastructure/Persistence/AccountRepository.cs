@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Domain.DbModels;
+using Domain.Models;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,9 +17,17 @@ namespace Persistence
         {
         }
 
-        public async Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, GetItemsQuery itemsQuery, CancellationToken cancellationToken = default)
         {
-            return await FindByCondition(a => a.OwnerId.Equals(ownerId)).ToListAsync(cancellationToken);
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId))
+                .Skip((itemsQuery.PageNumber - 1) * itemsQuery.PageSize)
+                .Take(itemsQuery.PageSize)
+                .ToListAsync(cancellationToken);
+        }
+
+        public async Task<bool> ExistsAny(Guid ownerId, CancellationToken cancellationToken = default)
+        {
+            return await FindByCondition(a => a.OwnerId.Equals(ownerId)).AnyAsync(cancellationToken);
         }
 
         public async Task<AccountDbModel?> GetAccountByOwner(Guid ownerId, Guid id, CancellationToken cancellationToken = default)

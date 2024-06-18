@@ -1,5 +1,8 @@
 ﻿using Contracts.DataTransferObjects;
+using Domain.Models;
+using Domain.Models.Parameters;
 using Microsoft.AspNetCore.Mvc;
+using Presentation.FilterAttributes;
 using Services.Abstractions;
 using System;
 using System.Collections.Generic;
@@ -21,9 +24,10 @@ namespace Presentation.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAccountsForOwner(Guid ownerId, CancellationToken cancellationToken)
+        [PageMetadataFilterAttribute<Account>]
+        public IActionResult GetAccountsForOwner([FromQuery] AccountParameters accountParameters, Guid ownerId, CancellationToken cancellationToken)
         {
-            var accounts = accountService.GetAccountsByOwnerId(ownerId, cancellationToken);
+            var accounts = accountService.GetAccountsByOwnerId(ownerId, accountParameters, cancellationToken);
             return Ok(accounts);
         }
 

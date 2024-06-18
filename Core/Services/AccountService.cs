@@ -4,6 +4,7 @@ using Domain.DbModels;
 using Domain.Exceptions;
 using Domain.Extensions;
 using Domain.Models;
+using Domain.Models.Parameters.Base;
 using Domain.Repository;
 using Logging.Abstractions;
 using Services.Abstractions;
@@ -23,17 +24,21 @@ namespace Services
             this.mapper = mapper;
         }
 
-        public async Task<AccountDto?> GetAccountsByOwnerId(Guid ownerId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AccountDto>> GetAccountsByOwnerId(Guid ownerId, QueryStringParametersBase accountParameters, CancellationToken cancellationToken)
         {
-            var accountsDb = await repository.Account.GetAllByOwnerIdAsync(ownerId);
+            var parameters = mapper.Map<GetItemsQuery>(accountParameters);
+            var accountsDb = await repository.Account.GetAllByOwnerIdAsync(ownerId, parameters, cancellationToken);
             if (accountsDb is null)
             {
                 logger.LogError($"Accounts with owner id: {ownerId}, hasn't been found in db.");
                 throw new NotFoundException($"Accounts with owner id {ownerId} not found");
             }
             logger.LogInfo($"Returned accounts with owner id: {ownerId}");
-            var accounts = mapper.Map<AccountDto>(accountsDb);
-            return accounts;
+
+            var accounts = mapper.Map<IEnumerable<AccountDto>>(accountsDb);
+            var pagedItems = new PagedList<AccountDto>(accounts, parameters.PageNumber, parameters.PageSize);
+
+            return pagedItems;
         }
 
         public async Task<AccountDto?> GetAccountForOwner(Guid ownerId, Guid id, CancellationToken cancellationToken)

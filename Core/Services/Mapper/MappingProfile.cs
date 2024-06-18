@@ -5,6 +5,7 @@ using Domain.DbModels;
 using Domain.Enums;
 using Domain.Extensions;
 using Domain.Models;
+using Domain.Models.Parameters.Base;
 
 namespace Services.Mapper
 {
@@ -13,8 +14,8 @@ namespace Services.Mapper
         public MappingProfile()
         {
             CreateMap<OwnerForCreationDto, OwnerDbModel>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore()) // Игнорируем Id при создании
-                .ForMember(dest => dest.Accounts, opt => opt.Ignore()); // Игнорируем Accounts при создании
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.Accounts, opt => opt.Ignore());
 
             CreateMap<OwnerForUpdateDto, OwnerDbModel>();
 
@@ -34,6 +35,8 @@ namespace Services.Mapper
             CreateMap<AccountTypeDto, AccountType>().ConvertUsing((value) => value.FromSrcToDst());
             CreateMap<OwnerDto, OwnerDbModel>();
             CreateMap<OwnerDbModel, OwnerDto>();
+
+            CreateMap<QueryStringParametersBase, GetItemsQuery>();
         }
     }
 }
