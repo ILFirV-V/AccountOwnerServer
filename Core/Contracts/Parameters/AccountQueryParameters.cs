@@ -9,5 +9,6 @@ namespace Domain.Models.Parameters
 {
     public class AccountQueryParameters : QueryStringParametersBase
     {
+        public new string OrderBy { get; set; } = "DateCreated";
     }
 }

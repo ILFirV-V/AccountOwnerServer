@@ -11,5 +11,6 @@ namespace Domain.Models.Parameters
         public DateTime MinDateOfBirth { get; init; }
         public DateTime MaxDateOfBirth { get; init; }
         public string Name { get; init; }
+        public string OrderBy { get; init; }
     }
 }

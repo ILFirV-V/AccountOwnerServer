@@ -13,13 +13,15 @@ namespace Domain.Models.Parameters
     {
         [DataType(DataType.Date)]
         [Display(Name = "Даты рождения заканчивая до этой даты")]
-        public DateTime MaxYearOfBirth { get; set; } = DateTime.Now;
+        public DateTime MaxDateOfBirth { get; set; } = DateTime.MaxValue;
 
         [DataType(DataType.Date)]
         [Display(Name = "Даты рождения начиная с этой даты")]
-        [DateOfBirthRange(nameof(MaxYearOfBirth))]
-        public DateTime MinYearOfBirth { get; set; } = DateTime.MinValue;
+        [DateOfBirthRange(nameof(MaxDateOfBirth))]
+        public DateTime MinDateOfBirth { get; set; } = DateTime.MinValue;
 
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
+
+        public new string OrderBy { get; set; } = "name";
     }
 }

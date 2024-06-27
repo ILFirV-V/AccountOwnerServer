@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Persistence
+namespace Persistence.Repository
 {
     internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
@@ -22,7 +22,7 @@ namespace Persistence
         {
             return RepositoryContext.Set<T>().Where(expression).AsNoTracking();
         }
-            
+
         public void Create(T entity)
         {
             RepositoryContext.Set<T>().AddAsync(entity);

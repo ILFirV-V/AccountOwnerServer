@@ -8,7 +8,7 @@ using Domain.Models.Parameters;
 using Domain.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace Persistence
+namespace Persistence.Repository
 {
     internal sealed class AccountRepository : RepositoryBase<AccountDbModel>, IAccountRepositoryAsync
     {

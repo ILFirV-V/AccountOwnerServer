@@ -1,5 +1,9 @@
-﻿using Domain.Repository;
+﻿using Domain.DbModels;
+using Domain.Repository;
 using Microsoft.Extensions.DependencyInjection;
+using Persistence.Helpers;
+using Persistence.Helpers.interfaces;
+using Persistence.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +16,7 @@ namespace Persistence.Extensions
     {
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
+            services.AddScoped<ISortHelper<OwnerDbModel>, SortHelper<OwnerDbModel>>();
             services.AddScoped<IOwnerRepositoryAsync, OwnerRepository>();
             services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();

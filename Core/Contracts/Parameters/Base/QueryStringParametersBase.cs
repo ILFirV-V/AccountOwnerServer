@@ -28,5 +28,7 @@ namespace Domain.Models.Parameters.Base
                 pageSize = (value > maxPageSize) ? maxPageSize : value;
             }
         }
+
+        public string OrderBy { get; set; }
     }
 }

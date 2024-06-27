@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
-using Persistence;
+using Persistence.Repository;
 
 
 namespace AccountOwnerServer.Extensions
