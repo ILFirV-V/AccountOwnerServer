@@ -5,7 +5,7 @@ namespace Domain.Repository
 {
     public interface IAccountRepositoryAsync : IRepositoryBase<AccountDbModel>
     {
-        Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, GetItemsQuery parameters, CancellationToken cancellationToken = default);
+        Task<IEnumerable<AccountDbModel>> GetAllByOwnerIdAsync(Guid ownerId, AccountParameters parameters, CancellationToken cancellationToken = default);
 
         Task<bool> ExistsAny(Guid ownerId, CancellationToken cancellationToken = default);
 

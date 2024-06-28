@@ -2,10 +2,8 @@ using AccountOwnerServer.Extensions;
 using AccountOwnerServer.Middleware;
 using Logging.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
-using NLog;
 using Persistence.Extensions;
 using Services.Extensions;
-using Services.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +13,6 @@ builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 
 builder.Services.ConfigureLoggerService();
-
 
 builder.Services.ConfigurePostgresqlContext(builder.Configuration);
 builder.Services.ConfigureRepositoryWrapper();

@@ -38,7 +38,8 @@ namespace Services.Mapper
             CreateMap<OwnerDbModel, OwnerDto>();
 
             CreateMap<QueryStringParametersBase, GetItemsQuery>();
-            CreateMap<OwnerQueryParameters, OwnerParameters>(); 
+            CreateMap<OwnerQueryParameters, OwnerParameters>();
+            CreateMap<AccountQueryParameters, AccountParameters>();
         }
     }
 }

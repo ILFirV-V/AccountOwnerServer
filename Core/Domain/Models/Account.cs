@@ -5,9 +5,9 @@ namespace Domain.Models
     public record Account
     {
         public Guid Id { get; init; }
-        public DateTime DateCreated { get; init; }
+        public DateTime DateCreated { get; init; } = DateTime.UtcNow;
         public AccountType AccountType { get; init; }
         public Guid OwnerId { get; init; }
-        public Owner? Owner { get; init; }
+        public Owner Owner { get; init; }
     }
 }

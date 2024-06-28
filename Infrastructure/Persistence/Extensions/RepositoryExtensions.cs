@@ -17,6 +17,7 @@ namespace Persistence.Extensions
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<ISortHelper<OwnerDbModel>, SortHelper<OwnerDbModel>>();
+            services.AddScoped<ISortHelper<AccountDbModel>, SortHelper<AccountDbModel>>();
             services.AddScoped<IOwnerRepositoryAsync, OwnerRepository>();
             services.AddScoped<IAccountRepositoryAsync, AccountRepository>();
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();

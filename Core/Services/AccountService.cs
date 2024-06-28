@@ -27,7 +27,7 @@ namespace Services
 
         public async Task<IEnumerable<AccountDto>> GetAccountsByOwnerId(Guid ownerId, QueryStringParametersBase accountParameters, CancellationToken cancellationToken)
         {
-            var parameters = mapper.Map<GetItemsQuery>(accountParameters);
+            var parameters = mapper.Map<AccountParameters>(accountParameters);
             var accountsDb = await repository.Account.GetAllByOwnerIdAsync(ownerId, parameters, cancellationToken);
             if (accountsDb is null)
             {
